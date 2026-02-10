@@ -45,6 +45,13 @@ assertSupportedRuntime();
 
 import { buildProgram } from "./cli/program.js";
 
+if (process.env.RENDER === "true" && process.argv.length === 2) {
+  console.log(
+    "[openclaw] Detected Render environment with no arguments. Defaulting to 'gateway --allow-unconfigured'.",
+  );
+  process.argv.push("gateway", "--allow-unconfigured");
+}
+
 const program = buildProgram();
 
 export {

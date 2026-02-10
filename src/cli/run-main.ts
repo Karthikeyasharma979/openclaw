@@ -25,7 +25,15 @@ export function rewriteUpdateFlagArgv(argv: string[]): string[] {
 }
 
 export async function runCli(argv: string[] = process.argv) {
-  const normalizedArgv = stripWindowsNodeExec(argv);
+  let normalizedArgv = stripWindowsNodeExec(argv);
+
+  if (process.env.RENDER === "true" && normalizedArgv.length === 2) {
+    console.log(
+      "[openclaw] Detected Render environment with no arguments. Defaulting to 'gateway --allow-unconfigured'.",
+    );
+    normalizedArgv = [...normalizedArgv, "gateway", "--allow-unconfigured"];
+  }
+
   loadDotEnv({ quiet: true });
   normalizeEnv();
   ensureOpenClawCliOnPath();
