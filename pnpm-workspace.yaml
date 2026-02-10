@@ -3,6 +3,7 @@ packages:
   - ui
   - packages/*
   - extensions/*
+  - vendor/a2ui/renderers/lit
 
 onlyBuiltDependencies:
   - "@lydell/node-pty"
